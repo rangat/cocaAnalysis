@@ -25,4 +25,4 @@ def isRelativeClause(sent:str):
 
     return f.hasNoun(shortPosList)
 
-#print(isRelativeClause(""))
+print(isRelativeClause(input('Enter a string: ')))
