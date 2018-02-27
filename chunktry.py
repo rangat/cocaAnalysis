@@ -4,36 +4,25 @@ from nltk import pos_tag
 from nltk import RegexpParser
 from nltk import collocations
 from nltk.stem import WordNetLemmatizer
+import funk as f
 
+def isRelativeClause(sent:str):
+    wnl = WordNetLemmatizer()
 
+    #tokenize the string
+    token = word_tokenize(sent)
 
-sentence1 = ("John knows who came to the party.")
-sentence2 = (" John is a guy I know who came to the party.")
-sentence3 = (" I know a guy who came to the party.")
+    #lemmatize the string (get rid of all the word endngs)
+    token = f.lemList(token, wnl)
 
-token1 = word_tokenize(sentence1)
-token2 = word_tokenize(sentence2)
-token3 = word_tokenize(sentence3)
+    #tag the list with their parts of speach (returns a list of tuples)
+    posList:list = pos_tag(token)
+    print('Tagged sentence: ', posList)
 
+    #shortPosList is a list starting from the noun before the wh pronoun ending with the wh pronoun
+    shortPosList = posList[f.retVerbBeforeW(posList, f.retWproNounIndex(posList)+1):(f.retWproNounIndex(posList)+1)]
+    print('Short List: ', shortPosList)
 
-wnl = WordNetLemmatizer()
+    return f.hasNoun(shortPosList)
 
-for x in range(len(token1)):
-    token1[x] = wnl.lemmatize(token1[x])
-
-print(token1)
-#print(wnl.lemmatize("knows"))
-
-print(wnl.lemmatize(token1[1]))
-
-pos1 = pos_tag(token1)
-pos2 = pos_tag(token2)
-pos3 = pos_tag(token3)
-
-print(pos1) 
-
-print(([item for item in pos1 if 'WP' in item]))
-print(type([item for item in pos1 if 'WP' in item]))
-
-print(pos1.index((['who', 'WP'])))
-#print(pos1(pos1.index(('who', 'WP'))-1))
+#print(isRelativeClause(""))
