@@ -32,5 +32,5 @@ def isRelativeClause(sent:str):
     #return f.hasNoun(shortPosList)
 
 #print(isRelativeClause(input('Enter a string: ')))
-print(isRelativeClause("John knows who came to the party"))
+print(isRelativeClause("John knows a guy who came to the party"))
 #print(isRelativeClause("John is a guy I know who came to the party."))
