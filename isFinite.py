@@ -6,7 +6,7 @@ from nltk import collocations
 from nltk.stem import WordNetLemmatizer
 import funk as f
 
-def isRelativeClause(sent:str):
+def isInfinite(sent:str):
     wnl = WordNetLemmatizer()
 
     #tokenize the string
@@ -20,9 +20,10 @@ def isRelativeClause(sent:str):
     #print('Tagged sentence: ', posList)
 
     #shortPosList is a list starting from the noun before the wh pronoun ending with the wh pronoun
-    shortPosList = posList[f.retVerbBeforeW(posList, f.retWproNounIndex(posList)+1):(f.retWproNounIndex(posList)+1)]
+    shortPosList = posList[(f.retWproNounIndex(posList)+1):]
     print('Short List: ', shortPosList)
 
-    return f.hasNoun(shortPosList)
+    return f.hasTo(shortPosList)
 
-print(isRelativeClause(" The moon is a star who lost her shine."))
+print("Is the verb infinite?")
+print(isInfinite("John knows where to find the coffee"))

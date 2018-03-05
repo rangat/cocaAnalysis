@@ -33,3 +33,9 @@ def lemList(token, wnl):
     for x in range(len(token)):
         token[x] = wnl.lemmatize(token[x])
     return token
+
+def hasTo(posList:list):
+    for x in posList:
+        if x[1][0] == 'T':
+            return True
+    return False
