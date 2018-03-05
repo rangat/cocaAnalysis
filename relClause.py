@@ -4,6 +4,7 @@ from nltk import pos_tag
 from nltk import RegexpParser
 from nltk import collocations
 from nltk.stem import WordNetLemmatizer
+import posConstant as c
 import funk as f
 
 def isRelativeClause(sent:str):
@@ -16,13 +17,19 @@ def isRelativeClause(sent:str):
     token = f.lemList(token, wnl)
 
     #tag the list with their parts of speach (returns a list of tuples)
+    #[('John', 'NNP'), ('know', 'VBP'), ('a', 'DT'), ('guy', 'NN'), ('who', 'WP'), ('came', 'VBD'), ('to', 'TO'), ('the', 'DT'), ('party', 'NN')]
     posList:list = pos_tag(token)
     print('Tagged sentence: ', posList)
 
-    #shortPosList is a list starting from the noun before the wh pronoun ending with the wh pronoun
-    shortPosList = posList[f.retVerbBeforeW(posList, f.retWproNounIndex(posList)+1):(f.retWproNounIndex(posList)+1)]
+    precedingList:list = f.listBeforePOS(posList, c.wh)
+    print('Preceding: ', precedingList)
+
+    #shortPosList is a list starting from the noun preceding the wh pronoun ending with the wh pronoun
+    shortPosList = f.listBefore(precedingList, c.verb)
     print('Short List: ', shortPosList)
 
     return f.hasNoun(shortPosList)
 
-print(isRelativeClause(input('Enter a string: ')))
+#print(isRelativeClause(input('Enter a string: ')))
+print(isRelativeClause("John knows a guy who came to the party"))
+#print(isRelativeClause("John is a guy I know who came to the party."))
