@@ -4,6 +4,7 @@ from nltk import pos_tag
 from nltk import RegexpParser
 from nltk import collocations
 from nltk.stem import WordNetLemmatizer
+import posConstant as c
 import funk as f
 
 def isInfinite(sent:str):
@@ -19,11 +20,13 @@ def isInfinite(sent:str):
     posList:list = pos_tag(token)
     #print('Tagged sentence: ', posList)
 
-    #shortPosList is a list starting from the noun before the wh pronoun ending with the wh pronoun
-    shortPosList = posList[(f.retWproNounIndex(posList)+1):]
-    print('Short List: ', shortPosList)
+    #shortPosList is a list starting from the wh pronoun to the verb after it
+    shortPosList = f.listAfterPOS(posList, c.wh)
+    segment = f.listBeforePOS(shortPosList, c.verb)
+    
+    print('Segment: ', segment)
 
-    return f.hasTo(shortPosList)
+    return f.hasPOS(segment, c.det)
 
 print("Is the verb infinite?")
 print(isInfinite("John knows where to find the coffee"))
