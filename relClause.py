@@ -30,7 +30,7 @@ def isRelativeClause(sent:str):
 
     return f.hasNoun(shortPosList)
 
-print(isRelativeClause(" The moon is a star who lost her shine."))
+#print(isRelativeClause(" The moon is a star who lost her shine."))
 #print(isRelativeClause(input('Enter a string: ')))
-#print(isRelativeClause("John knows a guy who came to the party"))
+print(isRelativeClause("John knows a guy who came to the party"))
 #print(isRelativeClause("John is a guy I know who came to the party."))

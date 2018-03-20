@@ -4,6 +4,12 @@ def listBeforePOS(posList:list, POS:str):
             return posList[:posList.index(x)+1]
     return posList
 
+def listAfterPOS(posList:list, POS:str):
+    for x in posList:
+        if x[1][0] == POS:
+            return posList[posList.index(x):]
+    return posList
+
 def hasNoun(posList:list):
     for x in posList:
         if x[1][0] == 'N':
@@ -23,8 +29,8 @@ def lemList(token, wnl):
         token[x] = wnl.lemmatize(token[x])
     return token
 
-def hasTo(posList:list):
+def hasPOS(posList:list, POS:str):
     for x in posList:
-        if x[1][0] == 'T':
+        if x[1][0] == POS:
             return True
     return False
