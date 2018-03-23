@@ -34,3 +34,9 @@ def hasPOS(posList:list, POS:str):
         if x[1][0] == POS:
             return True
     return False
+
+def returnPOSWord(posList:list, POS:str):
+    for x in posList:
+        if x[1][0] == POS:
+            return x[1]
+    return None
