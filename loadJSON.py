@@ -19,6 +19,6 @@ for file in os.listdir('./unread'):
             os.makedirs('edited')
             print("created edited directory")
 
-        with open("edited/edited_"+filename, 'a') as outfile:
+        with open("edited/edited_"+filename, 'w') as outfile:
             json.dump(newJSON, outfile)
             print("successfully edited ", filename)
