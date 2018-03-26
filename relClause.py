@@ -22,21 +22,21 @@ def isRelativeClause(sent:str):
     #print('Tagged sentence: ', posList)
 
     precedingList:list = f.listBeforePOS(posList, c.wh)
-    print('Preceding: ', precedingList)
+    #print('Preceding: ', precedingList)
 
     #shortPosList is a list starting from the noun preceding the wh pronoun ending with the wh pronoun
     shortPosList = f.listBefore(precedingList, c.verb)
-    print('Short List: ', shortPosList)
+    #print('Short List: ', shortPosList)
 
     return f.hasNoun(shortPosList)
 
 def isRelClause(posList:list):
     precedingList:list = f.listBeforePOS(posList, c.wh)
-    print('Preceding: ', precedingList)
+    #print('Preceding: ', precedingList)
 
     #shortPosList is a list starting from the noun preceding the wh pronoun ending with the wh pronoun
     shortPosList = f.listBefore(precedingList, c.verb)
-    print('Short List: ', shortPosList)
+    #print('Short List: ', shortPosList)
 
     return f.hasNoun(shortPosList)
 
@@ -44,4 +44,4 @@ def isRelClause(posList:list):
 #print(isRelativeClause(input('Enter a string: ')))
 #print(isRelativeClause("John knows a guy who came to the party"))
 #print(isRelativeClause("John is a guy I know who came to the party."))
-print(isRelativeClause(" 's harmful if we let it be harmful. You know, it was Aristotle who said: focus on what you can control, and you can get a lot"))
+#print(isRelativeClause(" 's harmful if we let it be harmful. You know, it was Aristotle who said: focus on what you can control, and you can get a lot"))

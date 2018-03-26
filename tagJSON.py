@@ -10,6 +10,7 @@ import relClause as rc
 import isFinite as isF
 import pprint
 
+#takes in json array and iterates through json objects to add name value pair tags
 def tagList(jsonFile:list):
     wnl = WordNetLemmatizer()
 
@@ -42,7 +43,7 @@ def tagList(jsonFile:list):
     
     return jsonFile
 
-jsonObj = [{"resNumber": 1, "year": 2017, "medium": "SPOK", "publication": "Fox: Fox News Sunday", "sentence": "  's harmful if we let it be harmful. You know, it was Aristotle who said: focus on what you can control, and you can get a lot"}, {"resNumber": 2, "year": 2017, "medium": "SPOK", "publication": "CNN: CNN Tonight", "sentence": "  Well, just before all of this happened, we know that K.T. McFarland, who was Flynn's deputy, she's a former Fox News contributor, she had"}]
+#jsonObj = [{"resNumber": 1, "year": 2017, "medium": "SPOK", "publication": "Fox: Fox News Sunday", "sentence": "  's harmful if we let it be harmful. You know, it was Aristotle who said: focus on what you can control, and you can get a lot"}, {"resNumber": 2, "year": 2017, "medium": "SPOK", "publication": "CNN: CNN Tonight", "sentence": "  Well, just before all of this happened, we know that K.T. McFarland, who was Flynn's deputy, she's a former Fox News contributor, she had"}]
 
-pp = pprint.PrettyPrinter(indent=4)
-pp.pprint(tagList(jsonObj))
+#pp = pprint.PrettyPrinter(indent=4)
+#pp.pprint(tagList(jsonObj))

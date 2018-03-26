@@ -2,3 +2,4 @@ ranga.py
 .vscode/
 __pycache__/
 CogSciClub.py
+*.json

@@ -24,7 +24,7 @@ def isInfinite(sent:str):
     shortPosList = f.listAfterPOS(posList, c.wh)
     segment = f.listBeforePOS(shortPosList, c.verb)
     
-    print('Segment: ', segment)
+    #print('Segment: ', segment)
 
     return f.hasPOS(segment, c.det)
 
@@ -37,14 +37,14 @@ def isInFin(posList:list):
     #print('Segment: ', segment)
     return f.hasPOS(segment, c.det)
 
-print("Is the verb infinite?")
-print(isInfinite("John knows where to found coffee"))
-
 def retModal(posList:list):
     shortPosList = f.listAfterPOS(posList, c.wh)
     segment = f.listBeforePOS(shortPosList, c.verb)
     if isInFin(posList):
         return f.returnPOSWord(segment, c.modal)
     return 'None'
+
+#print("Is the verb infinite?")
+#print(isInfinite("John knows where to found coffee"))
 
 #Modals: [can, might, must, should, could, would, ~will] 
