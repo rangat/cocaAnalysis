@@ -19,14 +19,14 @@ def isRelativeClause(sent:str):
     #tag the list with their parts of speach (returns a list of tuples)
     #[('John', 'NNP'), ('know', 'VBP'), ('a', 'DT'), ('guy', 'NN'), ('who', 'WP'), ('came', 'VBD'), ('to', 'TO'), ('the', 'DT'), ('party', 'NN')]
     posList:list = pos_tag(token)
-    #print('Tagged sentence: ', posList)
+    print('Tagged sentence: ', posList)
 
     precedingList:list = f.listBeforePOS(posList, c.wh)
-    #print('Preceding: ', precedingList)
+    print('Preceding: ', precedingList)
 
     #shortPosList is a list starting from the noun preceding the wh pronoun ending with the wh pronoun
     shortPosList = f.listBefore(precedingList, c.verb)
-    #print('Short List: ', shortPosList)
+    print('Short List: ', shortPosList)
 
     return f.hasNoun(shortPosList)
 
@@ -45,3 +45,4 @@ def isRelClause(posList:list):
 #print(isRelativeClause("John knows a guy who came to the party"))
 #print(isRelativeClause("John is a guy I know who came to the party."))
 #print(isRelativeClause(" 's harmful if we let it be harmful. You know, it was Aristotle who said: focus on what you can control, and you can get a lot"))
+print(isRelativeClause('the things that makes the danger real is that they know a middle-aged local man who ran a small side business who was beheaded with a serrated knife to enhance his'))

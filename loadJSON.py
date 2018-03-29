@@ -3,6 +3,9 @@ import tagJSON as tj
 import pprint
 import os
 
+#https://jsonlint.com/
+#breaks when passed in a sent with multiple wh words
+
 for file in os.listdir('./unread'):
     filename = os.fsdecode(file)
     if filename.endswith(".json"):

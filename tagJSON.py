@@ -17,6 +17,8 @@ def tagList(jsonFile:list):
     for jsonInd in jsonFile:
         sent = jsonInd["sentence"]
 
+        print(sent)
+        
         #tokenize the string
         token = word_tokenize(sent)
 
