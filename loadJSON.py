@@ -2,6 +2,7 @@ import json
 import tagJSON as tj
 import pprint
 import os
+#import shorten as s
 
 #https://jsonlint.com/
 #breaks when passed in a sent with multiple wh words
@@ -9,11 +10,19 @@ import os
 for file in os.listdir('./unread'):
     filename = os.fsdecode(file)
     if filename.endswith(".json"):
+        name = filename[:-5]
+        parts = name.split("_")
+        
+        whWord = parts[0].lower()
+        collocates = parts[1].lower()
+        prevWord = parts[2].lower()
         print("loaded file: ", filename)
         with open('unread/'+filename) as json_data:
             jList = json.load(json_data)
-        
-        newJSON = tj.tagList(jList)
+            
+        #processedJSON = s.addConcatTag(jList, whWord, prevWord)
+        #start running preprocessing on loaded data, pass in filename
+        newJSON = tj.tagList(jList, whWord, prevWord)
 
         #pp = pprint.PrettyPrinter(indent=4)
         #pp.pprint(newJSON)

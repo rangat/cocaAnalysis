@@ -47,4 +47,5 @@ def retModal(posList:list):
 #print("Is the verb infinite?")
 #print(isInfinite("John knows where to found coffee"))
 
-#Modals: [can, might, must, should, could, would, ~will] 
+#print(isInfinite("know, it was Aristotle who"))
+#Modals: [can, might, must, should, could, would, ~will] i

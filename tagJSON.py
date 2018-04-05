@@ -8,17 +8,21 @@ import posConstant as c
 import funk as f
 import relClause as rc
 import isFinite as isF
+import shorten as s
 import pprint
 
 #takes in json array and iterates through json objects to add name value pair tags
-def tagList(jsonFile:list):
+def tagList(jsonFile:list, whWord:str, prevWord:str):
     wnl = WordNetLemmatizer()
 
     for jsonInd in jsonFile:
         sent = jsonInd["sentence"]
 
-        print(sent)
+        #print(sent)
         
+        if sent == "":
+            continue
+
         #tokenize the string
         token = word_tokenize(sent)
 
@@ -28,14 +32,26 @@ def tagList(jsonFile:list):
         #tag the list with their parts of speach (returns a list of tuples)
         posList:list = pos_tag(token)
 
+        concatSent = s.retConcatList(posList, whWord, prevWord)
+        jsonInd["shortSent"] = f.remakeSent(concatSent)
+
+        if jsonInd["shortSent"] == "":
+            jsonInd["isRelClause"] = 'False'
+            jsonInd["isInfinite"] = 'False'
+            jsonInd["modal"] = 'None'
+            continue
+        
+        print(jsonInd["resNumber"], " : ", jsonInd["shortSent"])
+        print(concatSent)
+        print("")
         #check if the list is a relative clause
-        if rc.isRelClause(posList):
+        if rc.isRelClause(concatSent):
             jsonInd["isRelClause"] = 'True'
         else:
             jsonInd["isRelClause"] = 'False'
 
         #check if the list is infinite
-        if isF.isInFin(posList):
+        if isF.isInFin(concatSent):
             jsonInd["isInfinite"] = 'True'
             #isModal and add modal tag
             jsonInd["modal"] = isF.retModal

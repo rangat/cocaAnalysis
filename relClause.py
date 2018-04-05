@@ -45,4 +45,8 @@ def isRelClause(posList:list):
 #print(isRelativeClause("John knows a guy who came to the party"))
 #print(isRelativeClause("John is a guy I know who came to the party."))
 #print(isRelativeClause(" 's harmful if we let it be harmful. You know, it was Aristotle who said: focus on what you can control, and you can get a lot"))
-print(isRelativeClause('the things that makes the danger real is that they know a middle-aged local man who ran a small side business who was beheaded with a serrated knife to enhance his'))
+#print(isRelativeClause('the things that makes the danger real is that they know a middle-aged local man who ran a small side business who was beheaded with a serrated knife to enhance his'))
+
+#print(isRelativeClause('\'s like a slap in the face, \" says Rams linebacker Connor Barwin, who was photographed making a Dr. Seuss-like face after sniffing salts during a 2013 game.'))
+#print(isRelativeClause(' dealt a lot with that with sexual assault, you know, victims, people who were raped, sex abuse crimes, where they don\'t want to come forward'))
+#print(isRelativeClause('know, victims, people who were'))
