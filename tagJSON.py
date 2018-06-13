@@ -12,7 +12,7 @@ import shorten as s
 import pprint
 
 #takes in json array and iterates through json objects to add name value pair tags
-def tagList(jsonFile:list, whWord:str, prevWord:str):
+def tagList(jsonFile:list, whWord:str, collocates:str, prevWord:str):
     wnl = WordNetLemmatizer()
 
     for jsonInd in jsonFile:
@@ -32,7 +32,7 @@ def tagList(jsonFile:list, whWord:str, prevWord:str):
         #tag the list with their parts of speach (returns a list of tuples)
         posList:list = pos_tag(token)
 
-        concatSent = s.retConcatList(posList, whWord, prevWord)
+        concatSent = s.retConcatList(posList, whWord, collocates, prevWord)
         jsonInd["shortSent"] = f.remakeSent(concatSent)
 
         if jsonInd["shortSent"] == "":

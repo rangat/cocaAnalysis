@@ -6,7 +6,7 @@ import funk as f
 import posConstant as pc
 
 #find the know, find the following wh, find the following verb: concat front and end
-def addConcatTag(jsonFile:list, whWord:str, prevWord:str):
+def addConcatTag(jsonFile:list, whWord:str, collocates:str, prevWord:str):
     wnl = WordNetLemmatizer()
 
     for jsonInd in jsonFile:
@@ -21,7 +21,7 @@ def addConcatTag(jsonFile:list, whWord:str, prevWord:str):
         #tag the list with their parts of speach (returns a list of tuples)
         posList:list = pos_tag(token)
 
-        firstInd = f.indexOfSearchTerm(posList, prevWord, whWord)
+        firstInd = f.indexOfSearchTerm(posList, prevWord, collocates, whWord)
         afterPrevWordList = posList[firstInd:]
 
         secondInd = f.indexOfPOSAfterSearchTerm(afterPrevWordList, whWord, pc.verb)
@@ -34,8 +34,8 @@ def addConcatTag(jsonFile:list, whWord:str, prevWord:str):
         
     return jsonFile
 
-def retConcatList(posList:list, whWord:str, prevWord:str):
-    firstInd = f.indexOfSearchTerm(posList, prevWord, whWord)
+def retConcatList(posList:list, whWord:str, collocates:str, prevWord:str):
+    firstInd = f.indexOfSearchTerm(posList, prevWord, collocates, whWord)
     afterPrevWordList = posList[firstInd:]
 
     secondInd = f.indexOfPOSAfterSearchTerm(afterPrevWordList, whWord, pc.verb)

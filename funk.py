@@ -66,10 +66,11 @@ def countToNextWord(posList:list, word):
         wordNum += 1
     return wordNum
 
-def indexOfSearchTerm(posList:list, searchTerm:str, nextWord:str):
+def indexOfSearchTerm(posList:list, searchTerm:str, collocates:str, nextWord:str):
     wordNum = 0
     for wordNum in range(len(posList)):
-        if posList[wordNum][0] == searchTerm and (countToNextWord(posList[wordNum:], nextWord) < 6):
+        #if the word matches the search term, the pos matches the collocates and nextWord is within 6 words of the word
+        if (posList[wordNum][0] == searchTerm) and (posList[wordNum][1][0] == collocates[0]) and (countToNextWord(posList[wordNum:], nextWord) < 6):
             return wordNum
         wordNum += 1
     return wordNum

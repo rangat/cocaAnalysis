@@ -22,7 +22,7 @@ for file in os.listdir('./unread'):
             
         #processedJSON = s.addConcatTag(jList, whWord, prevWord)
         #start running preprocessing on loaded data, pass in filename
-        newJSON = tj.tagList(jList, whWord, prevWord)
+        newJSON = tj.tagList(jList, whWord, collocates, prevWord)
 
         #pp = pprint.PrettyPrinter(indent=4)
         #pp.pprint(newJSON)
