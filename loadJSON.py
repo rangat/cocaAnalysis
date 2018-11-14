@@ -1,8 +1,7 @@
 import json
-import tagJSON as tj
+import tag_JSON as tj
 import pprint
 import os
-#import shorten as s
 
 #https://jsonlint.com/
 #breaks when passed in a sent with multiple wh words
@@ -14,23 +13,20 @@ for file in os.listdir('./unread'):
         parts = name.split("_")
         
         whWord = parts[0].lower()
-        collocates = parts[1].lower()
-        prevWord = parts[2].lower()
+        collocate = parts[1].lower()
+        context = parts[2].lower()
         print("loaded file: ", filename)
         with open('unread/'+filename) as json_data:
-            jList = json.load(json_data)
-            
-        #processedJSON = s.addConcatTag(jList, whWord, prevWord)
-        #start running preprocessing on loaded data, pass in filename
-        newJSON = tj.tagList(jList, whWord, collocates, prevWord)
+            jsonList:list = json.load(json_data)
 
-        #pp = pprint.PrettyPrinter(indent=4)
-        #pp.pprint(newJSON)
+        newJSON:list = tj.tagList(jsonList, whWord, collocate, context)
 
+        # Check if dir exists and create it if not
         if not os.path.exists('edited'):
             os.makedirs('edited')
             print("created edited directory")
 
+        # Dump newly formed json into file
         with open("edited/edited_"+filename, 'w') as outfile:
             json.dump(newJSON, outfile)
             print("successfully edited ", filename)

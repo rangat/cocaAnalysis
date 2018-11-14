@@ -48,4 +48,4 @@ def retModal(posList:list):
 #print(isInfinite("John knows where to found coffee"))
 
 #print(isInfinite("know, it was Aristotle who"))
-#Modals: [can, might, must, should, could, would, ~will] i
+#Modals: [can, might, must, should, could, would, ~will]
