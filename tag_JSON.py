@@ -40,7 +40,7 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
         try:
             if 'you know,' in sent:
                 clauseType = "You Know"
-            elif f.x_in_set(".", context_wh, is_pos=True) or f.x_in_set(".", wh_collocate, is_pos=True) or f.x_in_set("#", context_wh, is_pos=True) or f.x_in_set("#", wh_collocate, is_pos=True):
+            elif f.x_in_set(".", context_wh, is_pos=True) or f.x_in_set(".", wh_collocate, is_pos=True) or f.x_in_set("#", context_wh, is_pos=True) or f.x_in_set("#", wh_collocate, is_pos=True) or f.x_in_set('``', context_wh, is_pos=True) or f.x_in_set(",", context_wh, is_pos=True):
                 clauseType = "Skipped"
             # Check if the clause is useless to us
             elif f.x_in_set("(", context_wh, is_pos=True) or f.x_in_set(")", context_wh, is_pos=True) or f.x_in_set("(", wh_collocate, is_pos=True) or f.x_in_set(")", wh_collocate, is_pos=True):
@@ -53,12 +53,12 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
             # ELSE IF "to" exists in SET B - Non-Finite
             elif f.x_in_set("to", wh_collocate, is_pos=False):
                 clauseType = "Non-Finite"
-            # ELSE IF modal exists in SET B - Modal
-            elif f.x_in_set(modals, wh_collocate, is_pos=False):
-                clauseType = "Modal"
             # ELSE IF "gap" exists in either set - :
             elif f.x_in_set(":", context_wh, is_pos=True) or f.x_in_set(":", wh_collocate, is_pos=True):
                 clauseType = ":"
+            # ELSE IF modal exists in SET B - Modal
+            elif f.x_in_set(modals, wh_collocate, is_pos=False):
+                clauseType = "Modal"
             # ELSE - Finite
             else:
                 clauseType = "Finite"

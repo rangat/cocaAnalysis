@@ -166,6 +166,13 @@ def x_in_set(x, pos_set:list, is_pos=True):
                 return True
     return False
 
+def punct_in_set(pos_set:list):
+    for item in pos_set:
+        if "." in item[0]:
+            return True
+    return False
+
+
 # from nltk import word_tokenize
 # from nltk import pos_tag
 
