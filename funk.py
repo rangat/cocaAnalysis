@@ -89,11 +89,11 @@ def get_set_context_wh(tagged_sent:list , context:str, wh:str):
     get = False
     ret_list = []
     for tag in tagged_sent:
-        if tag[0].lower() == context.lower():
+        if context.lower() in tag[0].lower():
             get = True
         if get:
             ret_list.append(tag)
-        if tag[0].lower() == wh.lower() and get:
+        if wh.lower() in tag[0].lower() and get:
             break
     
     return ret_list if ret_list != [] else None
@@ -102,7 +102,7 @@ def get_set_wh_collocate(tagged_sent:list, wh:str, collocate:str):
     get = False
     ret_list = []
     for tag in tagged_sent:
-        if tag[0].lower() == wh.lower():
+        if wh.lower() in tag[0].lower():
             get = True
         if get:
             ret_list.append(tag)
@@ -110,8 +110,46 @@ def get_set_wh_collocate(tagged_sent:list, wh:str, collocate:str):
             break
     return ret_list if ret_list != [] else None
 
+# I know that there are many ways to know who ate the animal, the animal who escaped from prison.
+def get_sets(tagged_sent:list, context:str, wh:str, collocate:str):
+    get = False
+    set1get = True
+    set2get = False
+    set1 = []
+    set2 = []
+    cnt = 0
+
+    for tag in tagged_sent:
+        if context.lower() in tag[0].lower():
+            get = True
+        if get:
+            # If know shows up again
+            if context.lower() in tag[0].lower() and cnt>0:
+                cnt = 0
+                set1.clear()
+            # If the distance between know and who exceeds 5
+            if cnt>5:
+                get = False
+                cnt = 0
+                set1.clear()
+            if set1get and get:
+                set1.append(tag)
+                if tag[1] != ',' and tag[1] != '.':
+                    cnt+=1
+            if wh.lower() in tag[0].lower():
+                set1get = False
+                set2get = True
+                cnt = 0
+            if set2get:
+                set2.append(tag)
+            # If the 
+            if set2get and tag[1][0].lower() == collocate[0].lower():
+                break
+    return set1, set2
+
+
 def x_in_set(x, pos_set:list, is_pos=True):
-    for pair in pos_set:
+    for pair in pos_set[1:]:
         word = pair[0].lower()
         pos = pair[1].lower()
 
