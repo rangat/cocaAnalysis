@@ -24,9 +24,28 @@ def isInfinite(sent:str):
     shortPosList = f.listAfterPOS(posList, c.wh)
     segment = f.listBeforePOS(shortPosList, c.verb)
     
-    print('Segment: ', segment)
+    #print('Segment: ', segment)
 
     return f.hasPOS(segment, c.det)
 
-print("Is the verb infinite?")
-print(isInfinite("John knows where to find the coffee"))
+
+#return true if there is a determiner between the wh pronoun and the following verb
+def isInFin(posList:list):
+    #shortPosList is a list starting from the wh pronoun to the verb after it
+    shortPosList = f.listAfterPOS(posList, c.wh)
+    segment = f.listBeforePOS(shortPosList, c.verb)
+    #print('Segment: ', segment)
+    return f.hasPOS(segment, c.det)
+
+def retModal(posList:list):
+    shortPosList = f.listAfterPOS(posList, c.wh)
+    segment = f.listBeforePOS(shortPosList, c.verb)
+    if isInFin(posList):
+        return f.returnPOSWord(segment, c.modal)
+    return 'None'
+
+#print("Is the verb infinite?")
+#print(isInfinite("John knows where to found coffee"))
+
+#print(isInfinite("know, it was Aristotle who"))
+#Modals: [can, might, must, should, could, would, ~will]
