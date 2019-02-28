@@ -27,7 +27,9 @@ know = ['know', 'knows', 'knew']
 clauseType = None
 modals = ['can', 'could', 'may', 'might', 'shall', 'should', 'will', 'would', 'must']
 
-if NP exists between know-wh:
+if V exists between know-wh:
+    clauseType = "Other"
+elif NP exists between know-wh:
     clauseType = "Relative Clause"
 elif 'to' exists between who-v:
     clauseType = "Non-Finite"
@@ -36,3 +38,19 @@ elif modal exists between who-v:
 else:
     clauseType = "Finite"
 ```
+
+#### TODO
+
+1. **If the open and closing parens exist in "know-who" then don't tag as "parens"**
+2. **Start looking at know-where**
+
+## Other Collocations to Scrape
+
+* know - who
+* know - where
+* predict - who
+* predict - where
+* surprise - who
+* surprise - where
+* tell - who
+* tell - where
