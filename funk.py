@@ -172,6 +172,11 @@ def punct_in_set(pos_set:list):
             return True
     return False
 
+def get_pos_word_in_set(word_set:list, pos:str):
+    for tup in word_set:
+        if tup[1][0].lower() == pos.lower():
+            return tup[0]
+    return None
 
 # from nltk import word_tokenize
 # from nltk import pos_tag

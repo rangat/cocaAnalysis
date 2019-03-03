@@ -23,6 +23,8 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
         tagged = pos_tag(word_tokenize(sent))
 
         clauseType = None
+        modal = None
+        verb = None
 
         modals = ['can', 'could', 'may', 'might', 'shall', 'should', 'will', 'would', 'must']
         
@@ -53,15 +55,19 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
             # ELSE IF "to" exists in SET B - Non-Finite
             elif f.x_in_set("to", wh_collocate, is_pos=False):
                 clauseType = "Non-Finite"
+                verb = f.get_pos_word_in_set(wh_collocate, 'V')
             # ELSE IF "gap" exists in either set - :
             elif f.x_in_set(":", context_wh, is_pos=True) or f.x_in_set(":", wh_collocate, is_pos=True):
                 clauseType = ":"
             # ELSE IF modal exists in SET B - Modal
             elif f.x_in_set(modals, wh_collocate, is_pos=False):
                 clauseType = "Modal"
+                modal = f.get_pos_word_in_set(wh_collocate, 'M')
+                verb = f.get_pos_word_in_set(wh_collocate, 'V')
             # ELSE - Finite
             else:
                 clauseType = "Finite"
+                verb = f.get_pos_word_in_set(wh_collocate, 'V')
         except:
             print("BROKE HERE: ")
             print(obj["resNumber"])
@@ -71,5 +77,7 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
             break
         
         obj['clauseType'] = clauseType
+        obj['modal'] = modal
+        obj['verb'] = verb
     
     return jsonList
