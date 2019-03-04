@@ -5,3 +5,6 @@ CogSciClub.py
 *.json
 *.csv
 test*.py
+*.zip
+unread/
+.DS_Store
