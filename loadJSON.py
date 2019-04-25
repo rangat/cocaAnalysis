@@ -1,5 +1,5 @@
 import json
-import tag_JSON as tj
+from taggers import embeddings as te
 import pprint
 import os
 
@@ -17,7 +17,7 @@ def run():
             with open('unread/'+filename) as json_data:
                 jsonList:list = json.load(json_data)
 
-            newJSON:list = tj.tagList(jsonList, whWord, collocate, context)
+            newJSON:list = te.tagList(jsonList, whWord, collocate, context)
 
             # Check if dir exists and create it if not
             if not os.path.exists('edited'):
@@ -26,5 +26,5 @@ def run():
 
             # Dump newly formed json into file
             with open("edited/edited_"+filename, 'w') as outfile:
-                json.dump(newJSON, outfile)
+                json.dump(newJSON, outfile, indent=4)
                 print("successfully edited ", filename)

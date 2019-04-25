@@ -19,5 +19,3 @@ def run():
     with open("edited/coca_data.json", 'w') as outfile:
         json.dump(collected, outfile, indent=4)
         print("successfully made complete json")
-
-run()
