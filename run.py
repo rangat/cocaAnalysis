@@ -11,4 +11,4 @@ collect_dataset.run()
 json_csv.json_to_csv("edited/coca_data.json")
 
 end = time.time()
-print(end - start)
+print(f"Program runtime: {end-start}")
