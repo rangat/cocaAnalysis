@@ -1,4 +1,4 @@
-# Heuristics for Analysis
+# Heuristics for Analysis for Embedded sentences
 ### Example Sentence:
 
 * "Well, just before all of this happened, we know that K.T. McFarland, who was Flynn's deputy, she's a former Fox News contributor, she had"
@@ -10,6 +10,7 @@
     ```
     ``` python
     ('knows', 'VBZ'), ('and', 'CC'), ('sees', 'VBZ'), ('exactly', 'RB'), ('who', 'WP')
+    ('who', 'WP'), ('Frank', 'NNP'), ('Underwood', 'NNP'), ('is', 'VBZ')
     ```
 * knows to see exactly who
 
@@ -41,8 +42,9 @@ else:
 
 #### TODO
 
-1. **If the open and closing parens exist in "know-who" then don't tag as "parens"**
-2. **Start looking at know-where**
+1. word_after_wh - string - Get the word directly following the wh word
+2. sub_after_wh - boolean - Using the same heuristics as relative clause, check and see if the word after wh is a subject (NP, DDT, Adj)
+3. keep scraping coca
 
 ## Other Collocations to Scrape
 
