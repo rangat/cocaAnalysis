@@ -178,6 +178,48 @@ def get_pos_word_in_set(word_set:list, pos:str):
             return tup[0]
     return None
 
+def get_sets_backwards(tagged_sent:list, context:str, wh:str, collocate:str):
+    get = False
+    set1get = True
+    set2get = False
+    set1 = []
+    set2 = []
+    cnt = 0
+
+    #start traversing tagged sentence backwards
+    #iterate through list reversed, find the verb first and then the wh
+    #set1 should contain context, set2 should contain wh words(?)
+    for tag in reversed(tagged_sent):
+
+        if context.lower() in tag[0].lower():
+            get = True
+            cnt=0
+
+        if get:
+            #if became shows up again
+            if context.lower() in tag[0].lower() and cnt>0:
+                cnt=0
+                set1.clear()
+
+        if set1get and get:
+            set1.append(tag)
+            if tag[1] != ',' and tag[1] != '.':
+                cnt+=1   
+            #go forward to get who
+            for tag in (tagged_sent):
+                if wh.lower() in tag[0].lower():
+                    set1get = False
+                    set2get = True
+                    cnt=0
+
+                if set2get and cnt<=5:
+                    set2.append(tag)
+                    break
+
+                cnt+=1
+        cnt+=1
+    return set1, set2
+
 # from nltk import word_tokenize
 # from nltk import pos_tag
 
