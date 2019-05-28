@@ -1,4 +1,3 @@
-#!/usr/bin/python
 import nltk
 from nltk import word_tokenize
 from nltk import pos_tag
@@ -15,6 +14,7 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
             continue
 
         sent = obj["sentence"]
+        #iterate through list reversed, find the verb first and then the wh
 
         tagged = pos_tag(word_tokenize(sent))
 
@@ -24,7 +24,7 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
 
         modals = ['am', 'is', 'are', 'was', 'were', 'being', 'been', 'be', 'have', 'had', 'has', 'do', 'does', 'did',' can', 'could', 'may', 'might', 'shall', 'should', 'will', 'would', 'must']
 
-        context_wh, wh_collocate = f.get_sets(tagged, context, whWord, collocate)
+        context_wh, wh_collocate = f.get_sets_backwards(tagged, context, whWord, collocate)
 
         obj['context_wh'] = str(context_wh)
         obj['wh_collocate'] = str(wh_collocate)
@@ -63,5 +63,3 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
 
     return jsonList
     
-
-
