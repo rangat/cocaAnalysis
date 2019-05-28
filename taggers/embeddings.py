@@ -1,4 +1,5 @@
 import nltk
+from nltk import sent_tokenize
 from nltk import word_tokenize
 from nltk import pos_tag
 from nltk import RegexpParser
@@ -19,6 +20,15 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
         # Save the sentance to a var
         sent = obj["sentence"]
 
+        obj["clean_sentence"] = None
+        
+        tok_sents = sent_tokenize(sent)
+        for s in tok_sents:
+            if whWord.lower() in s.lower() and context.lower() in s.lower():
+                sent = s
+                obj["clean_sentence"] = s
+                break
+
         # Tokenize sentence and tag parts of speech
         tagged = pos_tag(word_tokenize(sent))
 
@@ -34,13 +44,43 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
         # Wh to verb (SET B)
         #wh_collocate:list = f.get_set_wh_collocate(tagged, whWord, collocate)
 
-        context_wh, wh_collocate = f.get_sets(tagged, context, whWord, collocate)
+        context_wh, wh_collocate, wh_end = f.get_sets(tagged, context, whWord, collocate)
 
-        obj['context_wh'] = str(context_wh)
-        obj['wh_collocate'] = str(wh_collocate)
+        verbs_after_wh = []
+        for w in wh_end:
+            if w[1].startswith("V"):
+                verbs_after_wh.append(w[0])
 
-        obj['wh'] = whWord
+        obj['context_wh'] = context_wh
+        obj['wh_collocate'] = wh_collocate
+        obj['wh_end'] = wh_end
+        
+        obj['verbs_after_wh'] = verbs_after_wh
+
+        obj['wh'] = [whWord]
+
+        try:
+            if 'JJ' in wh_collocate[1][1]:
+                obj['wh'].append(wh_collocate[1][0])
+        except:
+            pass
+        
         obj['phrase'] = context
+        obj['mat_verb'] = f.modded_lemma(context)
+
+        if len(wh_collocate) > 1:
+            word_after_wh = wh_collocate[1][0]
+            pos_after_wh = wh_collocate[1][1]
+        else:
+            word_after_wh = None
+            pos_after_wh = None
+        
+        obj['word_after_wh'] = word_after_wh
+
+        if pos_after_wh:
+            obj['sub_after_wh'] = True if "N" in pos_after_wh or "DT" in pos_after_wh or "JJ" in pos_after_wh or "P" in pos_after_wh else False 
+        else:
+            obj['sub_after_wh'] = False
 
         try:
             if 'you know,' in sent:
@@ -53,7 +93,7 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
             elif f.x_in_set("V", context_wh, is_pos=True):
                 clauseType = "Other"
             # IF NP exists in SET A - Relative Clause
-            elif f.x_in_set("N", context_wh, is_pos=True) or f.x_in_set("DT", context_wh, is_pos=True) or f.x_in_set("JJ", context_wh, is_pos=True):
+            elif f.x_in_set("N", context_wh, is_pos=True) or f.x_in_set("DT", context_wh, is_pos=True) or f.x_in_set("JJ", context_wh, is_pos=True) or f.x_in_set("P", context_wh, is_pos=True):
                 clauseType = "Relative Clause"
             # ELSE IF "to" exists in SET B - Non-Finite
             elif f.x_in_set("to", wh_collocate, is_pos=False):
@@ -81,6 +121,7 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
         
         obj['clauseType'] = clauseType
         obj['modal'] = modal
+
+        obj['emb_verb'] = f.modded_lemma(verb)
         obj['verb'] = verb
-    
     return jsonList

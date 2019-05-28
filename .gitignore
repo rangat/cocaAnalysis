@@ -8,3 +8,4 @@ test*.py
 *.zip
 unread/
 .DS_Store
+data_analysis/

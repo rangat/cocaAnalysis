@@ -115,8 +115,10 @@ def get_sets(tagged_sent:list, context:str, wh:str, collocate:str):
     get = False
     set1get = True
     set2get = False
+    set3get = False
     set1 = []
     set2 = []
+    set3 = []
     cnt = 0
 
     for tag in tagged_sent:
@@ -139,13 +141,16 @@ def get_sets(tagged_sent:list, context:str, wh:str, collocate:str):
             if wh.lower() in tag[0].lower():
                 set1get = False
                 set2get = True
+                set3get = True
                 cnt = 0
             if set2get:
                 set2.append(tag)
-            # If the 
+            if set3get:
+                set3.append(tag)
+            # If the current tag's pos and the collocate's first letter match
             if set2get and tag[1][0].lower() == collocate[0].lower():
-                break
-    return set1, set2
+                set2get = False
+    return set1, set2, set3
 
 
 def x_in_set(x, pos_set:list, is_pos=True):
@@ -177,6 +182,23 @@ def get_pos_word_in_set(word_set:list, pos:str):
         if tup[1][0].lower() == pos.lower():
             return tup[0]
     return None
+
+def modded_lemma(verb:str):
+    from nltk.stem import WordNetLemmatizer
+    lemmatizer = WordNetLemmatizer() 
+
+    if not verb:
+        return None
+    if verb.endswith((".", "?", "-", "!")):
+        verb = verb[:-1]
+        
+    if verb in ["'re", "'m"]:
+        return "be"
+    else:
+        return lemmatizer.lemmatize(verb, "v")
+
+
+
 
 # from nltk import word_tokenize
 # from nltk import pos_tag

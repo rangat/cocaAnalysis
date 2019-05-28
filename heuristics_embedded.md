@@ -23,6 +23,7 @@ know = ['know', 'knows', 'knew']
 
 1. **Set A:** *'know-wh'* between know & who
 2. **Set B:** *'wh-v'* between who & following verb
+3. **Set C:** *'wh-end"* between wh & end of the sentence
 
 ``` python
 clauseType = None
@@ -56,3 +57,9 @@ else:
 * surprise - where
 * tell - who
 * tell - where
+
+#### New TODO
+
+1. Remove punctuation from tagged words (create remove punctuation function)
+2. Make the readme nice
+3. JJ at wh_collocate[1][1] append wh_collocate[1][0] to "wh" tag type(list)
