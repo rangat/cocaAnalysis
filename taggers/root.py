@@ -1,5 +1,6 @@
 import nltk
 from nltk import word_tokenize
+from nltk import sent_tokenize
 from nltk import pos_tag
 from nltk import RegexpParser
 from nltk import collocations
@@ -16,6 +17,15 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
         sent = obj["sentence"]
         #iterate through list reversed, find the verb first and then the wh
 
+        obj["clean_sentence"] = None
+
+        tok_sents = sent_tokenize(sent)
+        for s in tok_sents:
+            if whWord.lower() in s.lower() and context.lower() in s.lower():
+                sent = s
+                obj["clean_sentence"] = s
+                break
+        
         tagged = pos_tag(word_tokenize(sent))
 
         clauseType = None

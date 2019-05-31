@@ -93,7 +93,7 @@ def tagList(jsonList:list, whWord:str, collocate:str, context:str):
             elif f.x_in_set("V", context_wh, is_pos=True):
                 clauseType = "Other"
             # IF NP exists in SET A - Relative Clause
-            elif f.x_in_set("N", context_wh, is_pos=True) or f.x_in_set("DT", context_wh, is_pos=True) or f.x_in_set("JJ", context_wh, is_pos=True) or f.x_in_set("P", context_wh, is_pos=True):
+            elif f.x_in_set("N", context_wh, is_pos=True) or f.x_in_set("DT", context_wh, is_pos=True) or f.x_in_set("JJ", context_wh, is_pos=True) or f.x_in_set("P", context_wh, is_pos=True) or f.x_in_set('CD', context_wh, is_pos=True):
                 clauseType = "Relative Clause"
             # ELSE IF "to" exists in SET B - Non-Finite
             elif f.x_in_set("to", wh_collocate, is_pos=False):

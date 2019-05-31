@@ -1,5 +1,5 @@
 import json
-from taggers import embeddings as te
+from taggers import new_root as te
 import pprint
 import os
 
