@@ -154,7 +154,7 @@ def get_sets(tagged_sent:list, context:str, wh:str, collocate:str):
 
 
 def x_in_set(x, pos_set:list, is_pos=True):
-    for pair in pos_set[1:]:
+    for pair in pos_set:
         word = pair[0].lower()
         pos = pair[1].lower()
 
@@ -238,6 +238,15 @@ def get_sets_backwards(tagged_sent:list, context:str, wh:str, collocate:str):
                 cnt+=1
         cnt+=1
     return set1, set2
+
+def start_to_wh(tagged, wh):
+    ret = []
+
+    for t in tagged:
+        ret.append(t)
+        if t[0].lower() == wh.lower():
+            break
+    return ret
 
 # from nltk import word_tokenize
 # from nltk import pos_tag
